@@ -13,9 +13,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+
+from ProjetBlog import settings
+from blog.views import home, detail_article, modifier_comment, supprimer_comment
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-]
+    path('', home, name='home'),
+    path('details/<str:slug>', detail_article, name='detail_article'),
+    path('modifier-commentaire/<int:id>', modifier_comment, name='modifier_comment'),
+    path('supprimer_commentaire/<int:id>/', supprimer_comment, name='supprimer_comment'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

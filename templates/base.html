@@ -6,13 +6,13 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>ZenBlog Bootstrap Template - Index</title>
+  <title>{% block title %}{% endblock %}</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
   <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,22 +20,16 @@
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
 
   <!-- Template Main CSS Files -->
-  <link href="assets/css/variables.css" rel="stylesheet">
-  <link href="assets/css/main.css" rel="stylesheet">
+  <link href="{% static 'assets/css/variables.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: ZenBlog - v1.1.0
-  * Template URL: https://bootstrapmade.com/zenblog-bootstrap-blog-template/
-  * Author: BootstrapMade.com
-  * License: https:///bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -44,7 +38,7 @@
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="{% url 'home' %}" class="logo d-flex align-items-center">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
         <h1>SuperBlog</h1>
@@ -52,7 +46,7 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="index.html">Accueil</a></li>
+          <li><a href="{% url 'home' %}">Accueil</a></li>
           <li><a href="about.html">Apropos</a></li>
         </ul>
       </nav><!-- .navbar -->
@@ -80,86 +74,10 @@
 
   </header><!-- End Header -->
 
-  <main id="main">
+  {% block main %}
 
-    <!-- ======= Hero Slider Section ======= -->
-    <section id="hero-slider" class="hero-slider">
-      <div class="container-md">
-        <div class="row">
-          <div class="col-12">
-            <div class="swiper sliderFeaturedPosts">
-              <div class="">
-                <div class="swiper-slide">
-                  <span class="" style="height: 100px;">
-                      <h1 class="text-center">Bienvenue sur notre blog</h1>
-                  </span>
-                </div>                    
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section><!-- End Hero Slider Section -->
-
-    <!-- ======= Post Grid Section ======= -->
-    <section id="posts" class="posts">
-      <div class="container" data-aos="fade-up">
-        <div class="row g-5">
-          <div class="col-lg-12">
-            <div class="row">
-              <div class="col-lg-8 border-start custom-border">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="post-entry-1">
-                      <a href="single-post.html"><img src="assets/img/post-landscape-2.jpg" alt="" class="img-fluid"></a>
-                      <div class="post-meta"><span class="date">Sport</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                      <h2><a href="single-post.html">Let’s Get Back to Work, New York</a></h2>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="post-entry-1">
-                      <a href="single-post.html"><img src="assets/img/post-landscape-2.jpg" alt="" class="img-fluid"></a>
-                      <div class="post-meta"><span class="date">Sport</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                      <h2><a href="single-post.html">Let’s Get Back to Work, New York</a></h2>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="post-entry-1">
-                      <a href="single-post.html"><img src="assets/img/post-landscape-2.jpg" alt="" class="img-fluid"></a>
-                      <div class="post-meta"><span class="date">Sport</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                      <h2><a href="single-post.html">Let’s Get Back to Work, New York</a></h2>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="post-entry-1">
-                      <a href="single-post.html"><img src="assets/img/post-landscape-2.jpg" alt="" class="img-fluid"></a>
-                      <div class="post-meta"><span class="date">Sport</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                      <h2><a href="single-post.html">Let’s Get Back to Work, New York</a></h2>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Trending Section -->
-              <div class="col-lg-4">
-                  <div class="aside-block">
-                    <h3 class="aside-title">Categories</h3>
-                    <ul class="aside-links list-unstyled">
-                      <li><a href="category.html"><i class="bi bi-chevron-right"></i> Business</a></li>
-                      <li><a href="category.html"><i class="bi bi-chevron-right"></i> Culture</a></li>
-                      <li><a href="category.html"><i class="bi bi-chevron-right"></i> Sport</a></li>
-                      <li><a href="category.html"><i class="bi bi-chevron-right"></i> Food</a></li>
-                    </ul>
-                  </div>
-              </div> <!-- End Trending Section -->
-            </div>
-          </div>
-
-        </div> <!-- End .row -->
-      </div>
-    </section> <!-- End Post Grid Section -->
-
-  </main><!-- End #main -->
+  {% endblock %}
+  <!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
@@ -170,14 +88,14 @@
   <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="{% static 'assets/js/main.js' %}"></script>
 
 </body>
 

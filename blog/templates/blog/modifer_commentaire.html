@@ -1,0 +1,25 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+
+{% endblock %}
+
+{% block main %}
+    <main id="main">
+
+    <div class="row justify-content-center mt-5">
+
+              <div class="col-lg-6">
+                <h5 class="comment-title">Modifier le commentaire</h5>
+                <div class="row">
+                  <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Modifier" class="btn btn-primary">
+                </form>
+                </div>
+              </div>
+            </div>
+  </main>
+{% endblock %}
