@@ -10,11 +10,11 @@
     <section class="single-post-content">
       <div class="container">
         <div class="row">
-          <div class="col-md-12 post-content" data-aos="fade-up">
+          <div class="col-md-12 post-content">
 
             <!-- ======= Single Post Content ======= -->
             <div class="single-post">
-              <div class="post-meta"><span class="date">{{ article.categories }}</span> <span class="mx-1">&bullet;</span>
+              <div class="post-meta"><span class="date">{{ article.categories.nom }}</span> <span class="mx-1">&bullet;</span>
                   <span>{{ article.date_de_creation|date:'j F Y' }}</span>
               </div>
               <h1 class="mb-5">{{ article.titre }}</h1>
@@ -29,9 +29,13 @@
               <h5 class="comment-title py-4">{{ article.commentaire.count}} Commentaire(s)</h5>
               <div class="comment d-flex mb-4">
                 <div class="flex-shrink-0">
-                  <div class="avatar avatar-sm rounded-circle">
-                    <img class="avatar-img" src="{% static 'assets/img/person-5.jpg' %}" alt="" class="img-fluid">
-                  </div>
+                    {% if article.commentaire.count == 0 %}
+                        <p>Aucun commentaire disponible pour cet article</p>
+                    {% else %}
+                        <div class="avatar avatar-sm rounded-circle">
+                        <img class="avatar-img" src="{% static 'assets/img/person-5.jpg' %}" alt="" class="img-fluid">
+                        </div>
+                    {% endif %}
                 </div>
                   <div class="flex-grow-1 ms-2 ms-sm-3">
                       {% for commentaire in article.commentaire.all %}

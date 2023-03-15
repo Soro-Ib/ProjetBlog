@@ -12,6 +12,11 @@ class Categorie(models.Model):
     nom = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True, blank=True)
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.nom)
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.nom
 
@@ -23,7 +28,7 @@ class Article(models.Model):
     date_de_creation = models.DateField(blank=True, null=True)
     contenu = models.TextField(blank=True, verbose_name="Contenu")
     auteur = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    categories = models.ForeignKey(Categorie, on_delete=models.CASCADE, null=True, blank=True)
+    categories = models.ForeignKey(Categorie, on_delete=models.CASCADE, null=True, blank=True, related_name='article')
     images = models.ImageField(blank=True, upload_to='imagesblog')
 
     def __str__(self):
@@ -38,8 +43,8 @@ class Article(models.Model):
 
 class Commentaire(models.Model):
     date_de_publication = models.DateTimeField(auto_now_add=True)
-    nom_lecteur = models.CharField(max_length=255, null=True, blank=True)
-    email_lecteur = models.EmailField(max_length=255, null=True, blank=True)
+    nom_lecteur = models.CharField(max_length=255, null=True, blank=True, verbose_name='Nom')
+    email_lecteur = models.EmailField(max_length=255, null=True, blank=True, verbose_name='Email')
     contenu = models.TextField(verbose_name="Contenu")
     auteur = models.ForeignKey(User, on_delete=models.CASCADE, related_name='auteur', null=True, blank=True)
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='commentaire')

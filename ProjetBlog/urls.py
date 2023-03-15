@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from ProjetBlog import settings
-from blog.views import home, detail_article, modifier_comment, supprimer_comment
+from blog.views import home, detail_article, modifier_comment, supprimer_comment, about, article_par_categ
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +26,6 @@ urlpatterns = [
     path('details/<str:slug>', detail_article, name='detail_article'),
     path('modifier-commentaire/<int:id>', modifier_comment, name='modifier_comment'),
     path('supprimer_commentaire/<int:id>/', supprimer_comment, name='supprimer_comment'),
+    path('blog/apropos/', about, name='about'),
+    path('articles/<str:slug>/', article_par_categ, name='article_par_categ'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

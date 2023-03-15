@@ -1,4 +1,6 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
@@ -11,7 +13,10 @@ from blog.models import Article, Categorie, Commentaire
 def home(request):
     articles = Article.objects.all()
     categories = Categorie.objects.all()
-    return render(request, 'blog/home.html', context={'articles': articles, 'categories': categories})
+    paginator = Paginator(articles, 2)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'blog/home.html', context={'articles': page_obj, 'categories': categories})
 
 
 def detail_article(request, slug):
@@ -23,6 +28,7 @@ def detail_article(request, slug):
             new_commentaire.article = article
             new_commentaire.auteur = request.user if request.user.is_authenticated else None
             new_commentaire.save()
+            messages.add_message(request, messages.SUCCESS, 'Commentaire bien posté !')
             return HttpResponseRedirect(reverse('detail_article', args=[article.slug]))
     else:
         form = CommentaireForm()
@@ -34,6 +40,7 @@ def modifier_comment(request, id):
     form = CommentaireForm(request.POST or None, instance=commentaire)
     if form.is_valid():
         form.save()
+        messages.add_message(request, messages.SUCCESS, 'Commentaire modifié !')
         return redirect('detail_article', slug=commentaire.article.slug)
     return render(request, 'blog/modifer_commentaire.html', {'form': form})
 
@@ -43,4 +50,20 @@ def supprimer_comment(request, id):
     commentaire = get_object_or_404(Commentaire, id=id)
     article = commentaire.article.slug
     commentaire.delete()
+    messages.add_message(request, messages.SUCCESS, 'Commentaire supprimé !')
     return redirect('detail_article', slug=article)
+
+
+def about(request):
+    return render(request, 'blog/apropos.html')
+
+
+def article_par_categ(request, slug):
+    category = Categorie.objects.get(slug=slug)
+    categories = Categorie.objects.all()
+    articles = Article.objects.filter(categories=category)
+    paginator = Paginator(articles, 2)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {'articles': page_obj, 'categories': categories, 'category': category}
+    return render(request, 'blog/article_categ.html', context)

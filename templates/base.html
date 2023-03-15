@@ -46,8 +46,10 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="{% url 'home' %}">Accueil</a></li>
-          <li><a href="about.html">Apropos</a></li>
+            <li><a href="{% url 'home' %}">Accueil</a></li>
+            <li><a href="{% url 'about' %}">Apropos</a></li>
+            <li><a href="#">S'inscrire</a></li>
+            <li><a href="#">Se connecter</a></li>
         </ul>
       </nav><!-- .navbar -->
 
@@ -96,6 +98,46 @@
 
   <!-- Template Main JS File -->
   <script src="{% static 'assets/js/main.js' %}"></script>
+
+  <style>
+      input, textarea {
+    display: block;
+    padding: .75rem;
+    line-height: 1.5;
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    min-width: 600px;
+}
+
+label {
+    display: inline-block;
+    box-sixing: border-box;
+}
+  </style>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {% if messages %}
+        {% for message in messages %}
+            <script>
+                Swal.fire({
+                    position: 'center',
+                    icon: '{{ message.tags }}',
+                    text: '{{ message }}',
+                    customClass: 'swal-wide',
+                    showConfirmButton: false,
+                    timer: 3500
+                })
+            </script>
+        {% endfor %}
+    {% endif %}
+
+    <style>
+        .swal-wide{
+            width:500px !important;
+            height:220px !important;
+        }
+    </style>
 
 </body>
 

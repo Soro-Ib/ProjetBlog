@@ -1,0 +1,83 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+
+{% endblock %}
+
+{% block main %}
+    <main id="main">
+    <section>
+      <div class="container">
+        <div class="row">
+
+          <div class="col-md-9">
+            <h3 class="category-title">Categorie : {{ category.nom }}</h3>
+
+            {% for article in articles %}
+                <div class="d-md-flex post-entry-2 half">
+                  <a href="{% url 'detail_article' article.slug %}" class="me-4 thumbnail">
+                    <img src="{{ article.images.url }}" alt="" class="img-fluid card p-2" style="height: 300px">
+                  </a>
+                  <div>
+                    <div class="post-meta"><span class="date">{{ category.nom }}</span> <span class="mx-1">&bullet;</span>
+                        <span>{{ article.date_de_creation|date:'j F Y' }}</span></div>
+                    <h3><a href="{% url 'detail_article' article.slug %}">{{ article.titre }}</a></h3>
+                      <p>{{ article.contenu|safe|truncatewords:60 }}</p>
+                    <div class="d-flex align-items-center author">
+                      <div class="photo"><img src="{% static 'assets/img/person-2.jpg' %}" alt="" class="img-fluid"></div>
+                      <div class="name">
+                        <h3 class="m-0 p-0">{{ article.auteur }}</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            {% endfor %}
+
+            <div class="text-start py-4">
+              <div class="custom-pagination">
+                    {% if articles.has_previous %}
+                        <a href="?page={{ articles.previous_page_number }}" class="prev">Prevous</a>
+                    {% endif %}
+                    {% for page in articles.paginator.page_range %}
+                        {% if page == articles.number %}
+                            <a href="#!" class="active">{{ page }}</a>
+                        {% else %}
+                            <a href="?page={{ page }}">{{ page }}</a>
+                        {% endif %}
+                    {% endfor %}
+                  {% if articles.has_next %}
+                      <a href="?page={{ articles.next_page_number }}" class="next">Next</a>
+                  {% endif %}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <!-- End Categories -->
+
+            <div class="aside-block">
+              <h3 class="aside-title">Catégorie</h3>
+              <ul class="aside-tags list-unstyled">
+                  {% for categorie in categories %}
+                      <li>
+                        {% if categorie.slug %}
+                          <a href="{% url 'article_par_categ' categorie.slug %}">
+                            {{ categorie.nom }}
+                          </a>
+                        {% else %}
+                          {{ categorie.nom }}
+                        {% endif %}
+                      </li>
+                     {% endfor %}
+
+              </ul>
+            </div><!-- End Tags -->
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+{% endblock %}
