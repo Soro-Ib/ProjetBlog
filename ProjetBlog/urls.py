@@ -22,6 +22,8 @@ from blog.views import home, detail_article, modifier_comment, supprimer_comment
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
+    path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     path('', home, name='home'),
     path('details/<str:slug>', detail_article, name='detail_article'),
     path('modifier-commentaire/<int:id>', modifier_comment, name='modifier_comment'),
